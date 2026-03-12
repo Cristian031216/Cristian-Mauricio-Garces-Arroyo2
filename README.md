@@ -1,6 +1,6 @@
 <p align="center">
-<img src=./.github/assets/image.png>
-alt="Logo"
+<img src=./.github/assets/image.png
+alt="Logo">
 </p>
 
 # Desarrollo Web SSR - 20256a
