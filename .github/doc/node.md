@@ -16,4 +16,4 @@ servidores web para Node tenemos:
 
 Express es un _framework_ para Node, minimo, flexible no impositivo tanto en el flujo de trabajo como en la arquitectura del proyecto.
 
-El presente proyecto estara desarrollado en expressJs.
+El presente proyecto estara dessrrollado en expressJs.
