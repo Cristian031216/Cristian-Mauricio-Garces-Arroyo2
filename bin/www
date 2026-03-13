@@ -6,19 +6,21 @@
 
 var app = require('../app');
 var debug = require('debug')('cristian-mauricio-garces-arroyo2:server');
+var info = require('debug')('cristian-mauricio-garces-arroyo2:info')
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
+info('normalizing port')
 var port = normalizePort(process.env.PORT || '3000');
+info('port normalized: ' + port);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
+info('starting server on port ' + port);
 var server = http.createServer(app);
 
 /**
@@ -87,4 +89,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  info('server is listening on ${bind}')
 }
