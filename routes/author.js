@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
+import express from 'express';
+const router = express.Router();
 
 /*AUTOR*/
 router.get('/', function(req, res, next) {
     res.render('author', {
-        author: 'Cristian Mauricio',
+        name: 'Cristian Mauricio',
         lastname: 'Garces Arroyo',
+        mail: 'lb251130179@gamadero.tecnm.mx'
 
     });
 });
