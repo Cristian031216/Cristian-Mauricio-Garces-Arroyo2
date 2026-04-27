@@ -2,12 +2,11 @@ import express from 'express';
 const router = express.Router();
 
 /*AUTOR*/
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
     res.render('author', {
-        name: 'Cristian Mauricio',
-        lastname: 'Garces Arroyo',
-        mail: 'lb251130179@gamadero.tecnm.mx'
-
+        nombre: 'Cristian Mauricio Garces Arroyo',
+        rol: 'Desarrollador',
+        descripcion: 'Estudiante de noveno semestre de la carrera TICs en el ITGAM'
     });
 });
 

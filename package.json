@@ -1,11 +1,18 @@
 {
   "name": "cristian-mauricio-garces-arroyo2",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node _server_/bin/www",
-    "dev": "nodemon _server_/bin/www"
+    "start": "cross-env NODE_ENV=production nodemon ./_server_/bin/www",
+    "dev": "concurrently \"cross-env DEBUG=dwssr:* nodemon ./_server_/bin/www\" \"vite\"",
+    "dev:vite": "vite",
+    "build": "vite build",
+    "preview": "npm run build && npm run start",
+    "lint": "npm run lint:back && npm run lint:front",
+    "lint:back": "eslint \"./server/**/*.js\"",
+    "lint:front": "eslint \"./src/**/*.js\"",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -16,6 +23,18 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.5.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.3",
+    "vite": "^8.0.10"
+  },
+  "imports": {
+    "#server/*": "./server/*",
+    "#routers/*": "./routers/*"
   }
 }

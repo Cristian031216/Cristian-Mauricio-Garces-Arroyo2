@@ -5,26 +5,26 @@
  */
 
 import app from '../app.js';
-import createDebug from 'debug';
+import debugLib from 'debug';
 import http from 'node:http';
 
 // Configuramos los debugeadores manualmente
-const debug = createDebug('cristian-mauricio-garces-arroyo2:server');
-const info = createDebug('cristian-mauricio-garces-arroyo2:info');
+const debug = debugLib('cristian-mauricio-garces-arroyo2:server');
+const info = debugLib('dwssr:info');
 
 /**
  * Get port from environment and store in Express.
  */
 info('normalizing port')
-var port = normalizePort(process.env.PORT || '3000');
-info('port normalized: ' + port);
+const port = normalizePort(process.env.PORT || '3000');
+info('port normalized ' + port);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 info('starting server on port ' + port);
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -39,31 +39,22 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
+  const port = parseInt(val, 10);
+  
+  if (isNaN(port)) return val;
+  if (port >= 0) return port;
     // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
   return false;
-}
+  }
 
 /**
  * Event listener for HTTP server "error" event.
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+  if (error.syscall !== 'listen') throw error;
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -92,5 +83,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  info('server is listening on ${bind}')
+  info('server is listening on ${bind}');
 }

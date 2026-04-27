@@ -17,3 +17,16 @@ servidores web para Node tenemos:
 Express es un _framework_ para Node, minimo, flexible no impositivo tanto en el flujo de trabajo como en la arquitectura del proyecto.
 
 El presente proyecto estara dessrrollado en expressJs.
+
+#👹[Nodemon](https://www.npmjs.com/package/nodemon) es un paquete que actua como
+un _wrapper_ (envoltorio) para Node.js 
+su funcion es observar archivos 
+en el directorio de tu proyecto 
+y reinicia automaticamente la aplicacion 
+cuando detecta cambios guardados.
+
+✂️ Aliases
+los **import Aliases** tambien conocidos como 
+_path alisases_ o _module aliases_ son atajos o 
+alias que podemos configurar para simplificar la forma
+en la que importa un modulo
