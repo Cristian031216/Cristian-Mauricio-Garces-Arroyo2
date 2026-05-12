@@ -4,6 +4,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+//importando winston Logger
+import logger from './lib/winston.js';
 import hbs from 'hbs';
 
 // routers
@@ -13,6 +15,7 @@ import authorRouter from './routes/author.js';
 
 // helpers (ASEGÚRATE que exista este archivo)
 import { registerHelpers } from './lib/helpers.js';
+import morgan from 'morgan';
 
 // fix __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -27,7 +30,14 @@ app.set('view engine', 'hbs');
 // registrar helpers correctamente
 registerHelpers(hbs);
 
-app.use(logger('dev'));
+// Redirigiendo el flujo de logs de morgan
+//a winston
+//morgan --->[logs]---> winston ---> transportes
+app.use(morgan('dev', {
+  stream: {
+    write: (msg) => logger.http(msg.trim())
+  }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

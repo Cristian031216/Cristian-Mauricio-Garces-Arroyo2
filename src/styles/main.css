@@ -1,11 +1,5 @@
 @import "tailwindcss";
-@plugin "daisyui";
-
-body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-h1 {
-    color: #00B7FF;
-}
+/* Esta linea especifica donde se encontraran las clases de tailwindcss */
+@source "../../_server_/views/**/*.hbs";
+/* Esta linea carga daisyui como un javascript */
+@plugin "daisyui/index.js";
