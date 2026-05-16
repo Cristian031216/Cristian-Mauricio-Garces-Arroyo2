@@ -1,34 +1,42 @@
+// var createError = require('http-errors');
 import createError from 'http-errors';
+// var express = require('express');
 import express from 'express';
+// var path = require('path');
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// var cookieParser = require('cookie-parser');
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+// var logger = require('morgan');
+import morgan from 'morgan';
 //importando winston Logger
 import logger from './lib/winston.js';
 import hbs from 'hbs';
 
-// routers
+// importar el router del autor
+// var indexRouter = require('./routes/index');
 import indexRouter from './routes/index.js';
+// var usersRouter = require('./routes/users');
 import usersRouter from './routes/users.js';
+// var authorRouter = require('./routes/author');
 import authorRouter from './routes/author.js';
 
 // helpers (ASEGÚRATE que exista este archivo)
-import { registerHelpers } from './lib/helpers.js';
-import morgan from 'morgan';
+import { registerViteHelper } from './lib/vite.js';
 
 // fix __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//var app = express();
 const app = express();
 
-// view engine
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// registrar helpers correctamente
-registerHelpers(hbs);
+// registrar helpers para ENGINE
+registerViteHelper(hbs);
 
 // Redirigiendo el flujo de logs de morgan
 //a winston
@@ -42,20 +50,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// estáticos
+//ARCHIVOS ESTATICOS backend
+// Antes: app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname,'..', 'public')));
+
+// estáticos de Vite
 if (process.env.NODE_ENV === 'production') {
-   app.use(express.static(path.join(__dirname, '..', 'dist', '.vite')));
+   app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
 }
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
 // rutas
-app.use(['/', '/index'], indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/author', authorRouter);
 
-// 404
-app.use((req, res, next) => {
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
@@ -65,8 +75,10 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+// render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
+// // module.exports = app;
 export default app;
