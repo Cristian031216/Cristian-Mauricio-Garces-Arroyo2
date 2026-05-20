@@ -11,7 +11,6 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 //importando winston Logger
 import logger from './lib/winston.js';
-import hbs from 'hbs';
 
 // importar el router del autor
 // var indexRouter = require('./routes/index');
@@ -21,22 +20,18 @@ import usersRouter from './routes/users.js';
 // var authorRouter = require('./routes/author');
 import authorRouter from './routes/author.js';
 
-// helpers (ASEGÚRATE que exista este archivo)
-import { registerViteHelper } from './lib/vite.js';
+// Importando el configurador de handlebars
+import { configureHandlebars } from "./lib/handlebars.js"
 
 // fix __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //var app = express();
-const app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
-// registrar helpers para ENGINE
-registerViteHelper(hbs);
+logger.info("Creando la instancia de expressjs")
+var app = express();
+logger.info("Inicia configuracion de express")
+configureHandlebars(app);
 
 // Redirigiendo el flujo de logs de morgan
 //a winston
